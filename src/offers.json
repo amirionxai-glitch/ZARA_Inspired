@@ -1,0 +1,35 @@
+[
+    {
+        "id": "starter",
+        "tier": "starter",
+        "title": "Starter",
+        "access_summary": "Free workflow mapping guide.",
+        "price": "Free",
+        "billing": "free",
+        "cta_label": "Unlock Free Access",
+        "whop_checkout_url": "https://whop.com/checkout/32aPVJbMyk2H7zS8z7-iVU4-atjI-y27s-Hk3pg018wAly/",
+        "is_featured": false
+    },
+    {
+        "id": "pro",
+        "tier": "pro",
+        "title": "Pro",
+        "access_summary": "Complete library of protocols.",
+        "price": "$9",
+        "billing": "one_time",
+        "cta_label": "Upgrade to Pro",
+        "whop_checkout_url": "https://whop.com/checkout/32aPVJbMyk2H7zS8z7-iVU4-atjI-y27s-Hk3pg018wAly/",
+        "is_featured": false
+    },
+    {
+        "id": "elite",
+        "tier": "elite",
+        "title": "Elite",
+        "access_summary": "End-to-end system deployment.",
+        "price": "$49",
+        "billing": "monthly",
+        "cta_label": "Join Avatar Launch",
+        "whop_checkout_url": "https://whop.com/checkout/32aPVJbMyk2H7zS8z7-iVU4-atjI-y27s-Hk3pg018wAly/",
+        "is_featured": true
+    }
+]
