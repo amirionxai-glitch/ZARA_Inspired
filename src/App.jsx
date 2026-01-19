@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import offersData from './offers.json';
 
 const App = () => {
+    const navigate = useNavigate();
     const [offers, setOffers] = useState(offersData);
     const [checkoutState, setCheckoutState] = useState({ id: null, status: 'idle' });
     const [showToast, setShowToast] = useState(false);
     const [isEliteSuccess, setIsEliteSuccess] = useState(false);
 
     const handleCheckout = (offer) => {
+        if (offer.tier === 'elite') {
+            // Navigate to the deep dive page for Elite
+            navigate('/avatar-launch');
+            return;
+        }
+
         if (offer.tier === 'starter') {
             setCheckoutState({ id: offer.id, status: 'processing' });
             setTimeout(() => {
@@ -42,14 +50,9 @@ const App = () => {
 
     const onCheckoutSuccess = (offer) => {
         document.body.classList.remove('scroll-lock');
-        if (offer.tier === 'elite') {
-            setIsEliteSuccess(true);
-            window.scrollTo({ top: 0, behavior: 'auto' });
-        } else {
-            setCheckoutState({ id: null, status: 'idle' });
-            setShowToast('Pro access unlocked.');
-            setTimeout(() => setShowToast(false), 3000);
-        }
+        setCheckoutState({ id: null, status: 'idle' });
+        setShowToast(`${offer.title} access unlocked.`);
+        setTimeout(() => setShowToast(false), 3000);
     };
 
     const fadeInUp = {
@@ -65,28 +68,6 @@ const App = () => {
             }
         }
     };
-
-    if (isEliteSuccess) {
-        return (
-            <div className="app-container">
-                <header className="header" style={{ opacity: 0.5 }}>
-                    <div className="wordmark">ZARA Inspired</div>
-                </header>
-                <motion.div
-                    className="thank-you-container"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.8 }}
-                >
-                    <h1>You are no longer the bottleneck.</h1>
-                    <p>Avatar Launch is now active.</p>
-                    <button className="btn btn-solid" style={{ maxWidth: '240px' }}>
-                        Access the Program
-                    </button>
-                </motion.div>
-            </div>
-        );
-    }
 
     return (
         <div className="app-container">
@@ -164,7 +145,7 @@ const App = () => {
                                     disabled={checkoutState.id === offer.id}
                                 >
                                     {checkoutState.id === offer.id
-                                        ? (offer.tier === 'elite' ? "You're joining the system..." : "Processing...")
+                                        ? "Processing..."
                                         : offer.cta_label}
                                 </button>
                             </motion.div>
